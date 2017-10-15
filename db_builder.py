@@ -8,10 +8,6 @@ db = sqlite3.connect(f) #open if f exists, otherwise create
 c = db.cursor()    #facilitate db ops
 
 #==========================================================
-
-#command = ""          #put SQL statement in this string
-#c.execute(command)    #run SQL statement
-
 #Create the student table
 student_table = 'CREATE TABLE students (name TEXT, age INTEGER, id INTEGER);'
 c.execute(student_table)
@@ -23,7 +19,7 @@ c.execute(course_table)
 #Populate student table
 student_reader = csv.DictReader(open('peeps.csv'))
 for row in student_reader:
-    add_student = ("INSERT INTO students VALUES (?,?,?)", [row["name"], row["age"], row["id"]])
+    c.execute("INSERT INTO students VALUES (?,?,?)", [row["name"], row["age"], row["id"]])
 
 #Populate course table
 course_reader = csv.DictReader(open('courses.csv'))
